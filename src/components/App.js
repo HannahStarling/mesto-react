@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ErrorPopup from './ErrorPopup';
 import Footer from './Footer';
 import Header from './Header';
@@ -7,12 +7,49 @@ import Main from './Main';
 import PopupWithForm from './PopupWithForm';
 
 function App() {
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+
+  function closeAllPopups() {
+    if (isEditProfilePopupOpen === true) {
+      setIsEditProfilePopupOpen(!isEditProfilePopupOpen);
+    }
+    if (isEditAvatarPopupOpen === true) {
+      setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen);
+    }
+    if (isAddPlacePopupOpen === true) {
+      setIsAddPlacePopupOpen(!isAddPlacePopupOpen);
+    }
+  }
+
+  function handleEditAvatarClick() {
+    setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen);
+  }
+
+  function handleEditProfileClick() {
+    setIsEditProfilePopupOpen(!isEditProfilePopupOpen);
+  }
+
+  function handleAddPlaceClick() {
+    setIsAddPlacePopupOpen(!isAddPlacePopupOpen);
+  }
+
   return (
     <div className='page root__page'>
       <Header />
-      <Main />
+      <Main
+        onEditProfile={handleEditProfileClick}
+        onAddPlace={handleAddPlaceClick}
+        onEditAvatar={handleEditAvatarClick}
+      />
       <Footer />
-      <PopupWithForm name='edit-profile' title='Редактировать профиль'>
+      <PopupWithForm
+        onClose={closeAllPopups}
+        isOpen={isEditProfilePopupOpen}
+        name='edit-profile'
+        title='Редактировать профиль'
+      >
         <fieldset className='popup__input-container'>
           <label className='popup__input-label'>
             <input
@@ -47,7 +84,7 @@ function App() {
           </button>
         </fieldset>
       </PopupWithForm>
-      <PopupWithForm name='add-card' title='Новое место'>
+      <PopupWithForm onClose={closeAllPopups} isOpen={isAddPlacePopupOpen} name='add-card' title='Новое место'>
         <fieldset className='popup__input-container'>
           <label className='popup__input-label'>
             <input
@@ -80,7 +117,7 @@ function App() {
           </button>
         </fieldset>
       </PopupWithForm>
-      <PopupWithForm name='edit-avatar' title='Обновить аватар'>
+      <PopupWithForm onClose={closeAllPopups} isOpen={isEditAvatarPopupOpen} name='edit-avatar' title='Обновить аватар'>
         <fieldset className='popup__input-container'>
           <label className='popup__input-label'>
             <input
@@ -99,7 +136,7 @@ function App() {
           </button>
         </fieldset>
       </PopupWithForm>
-      <PopupWithForm name='delete-card' title='Вы уверены?'>
+      <PopupWithForm onClose={closeAllPopups} name='delete-card' title='Вы уверены?'>
         <button className='button popup__btn popup__btn_action_submit' type='submit'>
           Да
         </button>
