@@ -10,6 +10,11 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+  const [selectedCard, setSelectedCard] = useState('');
+
+  function handleCardClick(card) {
+    setSelectedCard(card);
+  }
 
   function closeAllPopups() {
     if (isEditProfilePopupOpen === true) {
@@ -20,6 +25,9 @@ function App() {
     }
     if (isAddPlacePopupOpen === true) {
       setIsAddPlacePopupOpen(!isAddPlacePopupOpen);
+    }
+    if (typeof selectedCard === 'object') {
+      setSelectedCard('');
     }
   }
 
@@ -39,6 +47,7 @@ function App() {
     <div className='page root__page'>
       <Header />
       <Main
+        onCardClick={handleCardClick}
         onEditProfile={handleEditProfileClick}
         onAddPlace={handleAddPlaceClick}
         onEditAvatar={handleEditAvatarClick}
@@ -142,7 +151,7 @@ function App() {
         </button>
       </PopupWithForm>
 
-      <ImagePopup />
+      <ImagePopup onClose={closeAllPopups} card={selectedCard} />
       <ErrorPopup />
     </div>
   );

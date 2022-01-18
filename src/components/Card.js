@@ -1,10 +1,12 @@
 import React from 'react';
 
 function Card(props) {
-  console.log(props.likes.length);
+  function handleCardClick() {
+    props.onCardClick(props);
+  }
   return (
     <li className='elements__item'>
-      <img src={props.link} className='elements__image' alt={props.name + '.'} />
+      <img onClick={handleCardClick} src={props.link} className='elements__image' alt={props.name + '.'} />
       <div className='elements__details-wrapper'>
         <h2 className='elements__title'>{props.name}</h2>
         <button className='button elements__like-btn' type='button' aria-label='Поставить лайк.'></button>
