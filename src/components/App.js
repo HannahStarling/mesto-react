@@ -1,6 +1,7 @@
 import React from 'react';
 import Footer from './Footer';
 import Header from './Header';
+import ImagePopup from './ImagePopup';
 import Main from './Main';
 import PopupWithForm from './PopupWithForm';
 
@@ -103,19 +104,8 @@ function App() {
         </button>
       </PopupWithForm>
 
-      <div className='popup page__popup popup_type_image'>
-        <div className='popup__container popup__container_type_image'>
-          <figure className='popup__figure'>
-            <img src='#' className='popup__image' alt='#' />
-            <figcaption className='popup__caption'></figcaption>
-          </figure>
-          <button
-            className='button popup__btn popup__btn_action_close'
-            type='button'
-            aria-label='Закрыть картинку.'
-          ></button>
-        </div>
-      </div>
+      <ImagePopup />
+
       <div className='popup page__popup popup_type_error'>
         <div className='popup__container'>
           <form className='popup__form' id='error' name='error'>
