@@ -1,4 +1,5 @@
 import React from 'react';
+import Footer from './Footer';
 import Header from './Header';
 import Main from './Main';
 
@@ -7,9 +8,7 @@ function App() {
     <div className='page root__page'>
       <Header />
       <Main />
-      <footer className='footer page__footer'>
-        <p className='footer__copyright'>&copy; 2021 Mesto Russia</p>
-      </footer>
+      <Footer />
       <div className='popup page__popup popup_type_edit-profile'>
         <div className='popup__container'>
           <form className='popup__form' id='user' name='user' novalidate>
