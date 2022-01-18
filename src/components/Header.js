@@ -1,7 +1,7 @@
 import React from 'react';
 import headerLogo from '../images/logo.svg';
 
-function Header(props) {
+function Header() {
   return (
     <header className='header page__header'>
       <a href='#' className='logo logo_place_header link-opacity'>

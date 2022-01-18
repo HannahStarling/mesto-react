@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import ErrorPopup from './ErrorPopup';
 import Footer from './Footer';
 import Header from './Header';
 import ImagePopup from './ImagePopup';
@@ -152,7 +151,6 @@ function App() {
       </PopupWithForm>
 
       <ImagePopup onClose={closeAllPopups} card={selectedCard} />
-      <ErrorPopup />
     </div>
   );
 }

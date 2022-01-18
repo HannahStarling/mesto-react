@@ -10,14 +10,19 @@ function Main({ onCardClick, onEditProfile, onAddPlace, onEditAvatar }) {
   const [cards, setCards] = useState([]);
 
   useEffect(() => {
-    api.getAllInitialData().then((data) => {
-      const [cards, info] = data;
-      const { name, about, avatar } = info;
-      setUserName(name);
-      setUserDescription(about);
-      setUserAvatar(avatar);
-      setCards(cards);
-    });
+    api
+      .getAllInitialData()
+      .then((data) => {
+        const [cards, info] = data;
+        const { name, about, avatar } = info;
+        setUserName(name);
+        setUserDescription(about);
+        setUserAvatar(avatar);
+        setCards(cards);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
 
   return (
