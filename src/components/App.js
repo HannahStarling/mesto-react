@@ -17,6 +17,7 @@ function App() {
     about: 'Загрузка данных...',
     avatar: '',
   });
+  const [cards, setCards] = useState([]);
 
   useEffect(() => {
     api
@@ -24,7 +25,7 @@ function App() {
       .then((data) => {
         const [cards, info] = data;
         setCurrentUser(info);
-        //setCards(cards);
+        setCards(cards);
       })
       .catch((err) => {
         console.log(err);
@@ -71,6 +72,7 @@ function App() {
           onEditProfile={handleEditProfileClick}
           onAddPlace={handleAddPlaceClick}
           onEditAvatar={handleEditAvatarClick}
+          cards={cards}
         />
         <Footer />
         <PopupWithForm

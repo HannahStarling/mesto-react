@@ -1,24 +1,10 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 import CurrentUserContext from '../context/CurrentUserContext';
 import avatarIsLoading from '../images/avatarIsLoading.svg';
-import api from '../utils/Api';
 import Card from './Card';
 
-function Main({ onCardClick, onEditProfile, onAddPlace, onEditAvatar }) {
-  const [cards, setCards] = useState([]);
-  const { name, about, avatar, _id } = useContext(CurrentUserContext);
-
-  useEffect(() => {
-    api
-      .getAllInitialData()
-      .then((data) => {
-        const [cards] = data;
-        setCards(cards);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+function Main({ cards, onCardClick, onEditProfile, onAddPlace, onEditAvatar }) {
+  const { name, about, avatar } = useContext(CurrentUserContext);
 
   return (
     <main className='content page__content'>
