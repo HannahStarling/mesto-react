@@ -1,14 +1,19 @@
 import React, { useContext } from 'react';
 import CurrentUserContext from '../context/CurrentUserContext';
 
-function Card({ link, name, onCardClick, likes, likes: { length }, owner: { _id: owner } }) {
+function Card({ link, name, onCardClick, onCardLike, likes, likes: { length }, owner: { _id: owner }, id, ...props }) {
   const { _id } = useContext(CurrentUserContext);
   const isOwn = owner === _id;
   const isLiked = likes.find(({ _id: id }) => id === _id);
 
+  function handleCardLike() {
+    onCardLike({ likes, id });
+  }
+
   function handleCardClick() {
     onCardClick({ name, link });
   }
+
   return (
     <li className='elements__item'>
       <img onClick={handleCardClick} src={link} className='elements__image' alt={name + '.'} />
@@ -18,6 +23,7 @@ function Card({ link, name, onCardClick, likes, likes: { length }, owner: { _id:
           className={`button elements__like-btn ${isLiked ? 'elements__like-btn_active' : ''}`.trim()}
           type='button'
           aria-label='Поставить лайк.'
+          onClick={handleCardLike}
         ></button>
         <span className='elements__like-counter'>{length}</span>
         <button

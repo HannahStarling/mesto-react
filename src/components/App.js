@@ -32,6 +32,18 @@ function App() {
       });
   }, []);
 
+  function handleCardLike({ likes, id }) {
+    const isLiked = likes.find(({ _id: UserId }) => UserId === currentUser._id);
+    api
+      .changeLikeCardStatus(id, !isLiked)
+      .then((newCard) => {
+        setCards((state) => state.map((c) => (c._id === id ? newCard : c)));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   function handleCardClick(card) {
     setSelectedCard(card);
   }
@@ -68,6 +80,7 @@ function App() {
       <div className='page root__page'>
         <Header />
         <Main
+          onCardLike={handleCardLike}
           onCardClick={handleCardClick}
           onEditProfile={handleEditProfileClick}
           onAddPlace={handleAddPlaceClick}
