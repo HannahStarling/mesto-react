@@ -1,7 +1,18 @@
 import React, { useContext } from 'react';
 import CurrentUserContext from '../context/CurrentUserContext';
 
-function Card({ link, name, onCardClick, onCardLike, likes, likes: { length }, owner: { _id: owner }, id, ...props }) {
+function Card({
+  link,
+  name,
+  likes,
+  likes: { length },
+  owner: { _id: owner },
+  id,
+  onCardClick,
+  onCardLike,
+  onCardDelete,
+  ...props
+}) {
   const { _id } = useContext(CurrentUserContext);
   const isOwn = owner === _id;
   const isLiked = likes.find(({ _id: id }) => id === _id);
@@ -12,6 +23,10 @@ function Card({ link, name, onCardClick, onCardLike, likes, likes: { length }, o
 
   function handleCardClick() {
     onCardClick({ name, link });
+  }
+
+  function handleCardDelete() {
+    onCardDelete({ id });
   }
 
   return (
@@ -30,6 +45,7 @@ function Card({ link, name, onCardClick, onCardLike, likes, likes: { length }, o
           className={`button ${isOwn ? 'elements__delete-btn' : 'elements__delete-btn_hidden'}`}
           type='button'
           aria-label='Удалить карточку.'
+          onClick={handleCardDelete}
         ></button>
       </div>
     </li>

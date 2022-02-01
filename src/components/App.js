@@ -32,6 +32,11 @@ function App() {
       });
   }, []);
 
+  function handleCardDelete({ id }) {
+    console.log(id);
+    api.deleteCard(id).then((_) => setCards((cards) => cards.filter((c) => c._id !== id)));
+  }
+
   function handleCardLike({ likes, id }) {
     const isLiked = likes.find(({ _id: UserId }) => UserId === currentUser._id);
     api
@@ -80,6 +85,7 @@ function App() {
       <div className='page root__page'>
         <Header />
         <Main
+          onCardDelete={handleCardDelete}
           onCardLike={handleCardLike}
           onCardClick={handleCardClick}
           onEditProfile={handleEditProfileClick}

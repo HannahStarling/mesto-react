@@ -3,7 +3,7 @@ import CurrentUserContext from '../context/CurrentUserContext';
 import avatarIsLoading from '../images/avatarIsLoading.svg';
 import Card from './Card';
 
-function Main({ cards, onCardClick, onEditProfile, onAddPlace, onEditAvatar, onCardLike }) {
+function Main({ cards, onEditProfile, onAddPlace, onEditAvatar, onCardLike, onCardClick, onCardDelete }) {
   const { name, about, avatar } = useContext(CurrentUserContext);
 
   return (
@@ -33,7 +33,16 @@ function Main({ cards, onCardClick, onEditProfile, onAddPlace, onEditAvatar, onC
       <section className='elements content__center'>
         <ul className='elements__list'>
           {cards.map(({ _id, ...props }) => {
-            return <Card key={_id} id={_id} onCardClick={onCardClick} onCardLike={onCardLike} {...props} />;
+            return (
+              <Card
+                key={_id}
+                id={_id}
+                onCardClick={onCardClick}
+                onCardLike={onCardLike}
+                onCardDelete={onCardDelete}
+                {...props}
+              />
+            );
           })}
         </ul>
       </section>
