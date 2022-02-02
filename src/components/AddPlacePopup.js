@@ -2,14 +2,12 @@ import React, { useState } from 'react';
 import PopupWithForm from './PopupWithForm';
 
 function AddPlacePopup({ isOpen, onClose, onAddCard }) {
-  const [name, setName] = useState('');
-  const [link, setLink] = useState('');
+  const [newCard, setNewCard] = useState({ name: '', link: '' });
 
   function handleSubmit(e) {
     e.preventDefault();
-    onAddCard({ name, link });
-    setName('');
-    setLink('');
+    onAddCard(newCard);
+    setNewCard({ name: '', link: '' });
   }
 
   return (
@@ -23,8 +21,8 @@ function AddPlacePopup({ isOpen, onClose, onAddCard }) {
     >
       <label className='popup__input-label'>
         <input
-          onChange={(e) => setName(e.target.value)}
-          value={name}
+          value={newCard.name}
+          onChange={(e) => setNewCard({ ...newCard, name: e.target.value })}
           autoComplete='off'
           type='text'
           className='popup__item popup__item_el_title'
@@ -39,8 +37,8 @@ function AddPlacePopup({ isOpen, onClose, onAddCard }) {
       </label>
       <label className='popup__input-label'>
         <input
-          onChange={(e) => setLink(e.target.value)}
-          value={link}
+          value={newCard.link}
+          onChange={(e) => setNewCard({ ...newCard, link: e.target.value })}
           autoComplete='off'
           type='url'
           className='popup__item popup__item_el_link'

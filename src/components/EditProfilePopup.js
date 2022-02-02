@@ -3,21 +3,16 @@ import CurrentUserContext from '../context/CurrentUserContext';
 import PopupWithForm from './PopupWithForm';
 
 function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
-  const [userName, setUserName] = useState('');
-  const [description, setDescription] = useState('');
-  const { name, about } = useContext(CurrentUserContext);
+  const currentUser = useContext(CurrentUserContext);
+  const [userInfo, setUserInfo] = useState(currentUser);
 
   useEffect(() => {
-    setUserName(name);
-    setDescription(about);
-  }, [name, about]);
+    setUserInfo(currentUser);
+  }, [currentUser]);
 
   function handleSubmit(e) {
     e.preventDefault();
-    onUpdateUser({
-      name: userName,
-      about: description,
-    });
+    onUpdateUser(userInfo);
   }
 
   return (
@@ -31,8 +26,8 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
     >
       <label className='popup__input-label'>
         <input
-          value={name}
-          onChange={(e) => setUserName(e.target.value)}
+          value={userInfo.name}
+          onChange={(e) => setUserInfo({ ...userInfo, name: e.target.value })}
           autoComplete='off'
           type='text'
           className='popup__item popup__item_el_name'
@@ -47,8 +42,8 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
       </label>
       <label className='popup__input-label'>
         <input
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
+          value={userInfo.about}
+          onChange={(e) => setUserInfo({ ...userInfo, about: e.target.value })}
           type='text'
           className='popup__item popup__item_el_about'
           id='about'
