@@ -36,28 +36,48 @@ function App() {
   }, []);
 
   function handleAddCard(newCard) {
-    api.postCard(newCard).then((newCard) => {
-      setCards([newCard, ...cards]);
-      closeAllPopups();
-    });
+    api
+      .postCard(newCard)
+      .then((newCard) => {
+        setCards([newCard, ...cards]);
+        closeAllPopups();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   function handleUpdateAvatar(currentUserAvatar) {
-    api.setAvatar(currentUserAvatar).then((avatar) => {
-      setCurrentUser(avatar);
-      closeAllPopups();
-    });
+    api
+      .setAvatar(currentUserAvatar)
+      .then((avatar) => {
+        setCurrentUser(avatar);
+        closeAllPopups();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   function handleUpdateUser(currentUserInfo) {
-    api.setUserInfo(currentUserInfo).then((info) => {
-      setCurrentUser(info);
-      closeAllPopups();
-    });
+    api
+      .setUserInfo(currentUserInfo)
+      .then((info) => {
+        setCurrentUser(info);
+        closeAllPopups();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   function handleCardDelete({ id }) {
-    api.deleteCard(id).then((_) => setCards((cards) => cards.filter((c) => c._id !== id)));
+    api
+      .deleteCard(id)
+      .then((_) => setCards((cards) => cards.filter((c) => c._id !== id)))
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   function handleCardLike({ likes, id }) {
