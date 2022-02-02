@@ -7,6 +7,7 @@ import Main from './Main';
 import PopupWithForm from './PopupWithForm';
 import api from '../utils/Api';
 import EditProfilePopup from './EditProfilePopup';
+import EditAvatarPopup from './EditAvatarPopup';
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -33,8 +34,15 @@ function App() {
       });
   }, []);
 
-  function handleUpdateUser(currentUser) {
-    api.setUserInfo(currentUser).then((info) => {
+  function handleUpdateAvatar(currentUserAvatar) {
+    api.setAvatar(currentUserAvatar).then((avatar) => {
+      setCurrentUser(avatar);
+      closeAllPopups();
+    });
+  }
+
+  function handleUpdateUser(currentUserInfo) {
+    api.setUserInfo(currentUserInfo).then((info) => {
       setCurrentUser(info);
       closeAllPopups();
     });
@@ -103,6 +111,7 @@ function App() {
         />
         <Footer />
         <EditProfilePopup onUpdateUser={handleUpdateUser} isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} />
+        <EditAvatarPopup onUpdateAvatar={handleUpdateAvatar} isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} />
         <PopupWithForm
           onClose={closeAllPopups}
           isOpen={isAddPlacePopupOpen}
@@ -135,26 +144,6 @@ function App() {
               required
             />
             <span className='popup__input-error popup__input-error_type_link'></span>
-          </label>
-        </PopupWithForm>
-        <PopupWithForm
-          onClose={closeAllPopups}
-          isOpen={isEditAvatarPopupOpen}
-          name='edit-avatar'
-          title='Обновить аватар'
-          buttonText='Сохранить'
-        >
-          <label className='popup__input-label'>
-            <input
-              autoComplete='off'
-              type='url'
-              className='popup__item popup__item_el_avatar'
-              id='avatar'
-              name='avatar'
-              placeholder='Ссылка на аватар'
-              required
-            />
-            <span className='popup__input-error popup__input-error_type_avatar'></span>
           </label>
         </PopupWithForm>
         <PopupWithForm onClose={closeAllPopups} name='delete-card' title='Вы уверены?' buttonText='Да' />
