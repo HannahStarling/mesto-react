@@ -6,6 +6,7 @@ import ImagePopup from './ImagePopup';
 import Main from './Main';
 import PopupWithForm from './PopupWithForm';
 import api from '../utils/Api';
+import EditProfilePopup from './EditProfilePopup';
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -31,6 +32,13 @@ function App() {
         console.log(err);
       });
   }, []);
+
+  function handleUpdateUser(currentUser) {
+    api.setUserInfo(currentUser).then((info) => {
+      setCurrentUser(info);
+      closeAllPopups();
+    });
+  }
 
   function handleCardDelete({ id }) {
     console.log(id);
@@ -94,42 +102,7 @@ function App() {
           cards={cards}
         />
         <Footer />
-        <PopupWithForm
-          onClose={closeAllPopups}
-          isOpen={isEditProfilePopupOpen}
-          name='edit-profile'
-          title='Редактировать профиль'
-          buttonText='Сохранить'
-        >
-          <label className='popup__input-label'>
-            <input
-              autoComplete='off'
-              type='text'
-              className='popup__item popup__item_el_name'
-              id='name'
-              name='name'
-              placeholder='Имя профиля'
-              minLength='2'
-              maxLength='40'
-              required
-            />
-            <span className='popup__input-error popup__input-error_type_name'></span>
-          </label>
-          <label className='popup__input-label'>
-            <input
-              type='text'
-              className='popup__item popup__item_el_about'
-              id='about'
-              name='about'
-              placeholder='Описание профиля'
-              minLength='2'
-              maxLength='200'
-              autoComplete='off'
-              required
-            />
-            <span className='popup__input-error popup__input-error_type_about'></span>
-          </label>
-        </PopupWithForm>
+        <EditProfilePopup onUpdateUser={handleUpdateUser} isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} />
         <PopupWithForm
           onClose={closeAllPopups}
           isOpen={isAddPlacePopupOpen}
