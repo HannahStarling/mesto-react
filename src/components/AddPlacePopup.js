@@ -1,13 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PopupWithForm from './PopupWithForm';
 
 function AddPlacePopup({ isOpen, onClose, onAddCard }) {
   const [newCard, setNewCard] = useState({ name: '', link: '' });
 
+  useEffect(() => {
+    setNewCard({ name: '', link: '' });
+  }, [isOpen]);
+
   function handleSubmit(e) {
     e.preventDefault();
     onAddCard(newCard);
-    setNewCard({ name: '', link: '' });
   }
 
   return (
