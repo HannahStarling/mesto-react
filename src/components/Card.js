@@ -8,9 +8,11 @@ function Card({
   likes: { length },
   owner: { _id: owner },
   id,
+  selectDeletedCard,
   onCardClick,
   onCardLike,
   onCardDelete,
+  onDeleteConfirm,
   ...props
 }) {
   const { _id } = useContext(CurrentUserContext);
@@ -26,7 +28,8 @@ function Card({
   }
 
   function handleCardDelete() {
-    onCardDelete({ id });
+    selectDeletedCard(id);
+    onDeleteConfirm(true);
   }
 
   return (

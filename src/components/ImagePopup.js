@@ -4,6 +4,7 @@ import Popup from './Popup';
 function ImagePopup({ card, onClose }) {
   return (
     <Popup
+      isOpen={card.name && card.link}
       isForm={false}
       onClose={onClose}
       className={`${card.name && card.link ? `popup_type_image popup_opened` : `popup_type_image`}`}

@@ -3,7 +3,17 @@ import CurrentUserContext from '../context/CurrentUserContext';
 import avatarIsLoading from '../images/avatarIsLoading.svg';
 import Card from './Card';
 
-function Main({ cards, onEditProfile, onAddPlace, onEditAvatar, onCardLike, onCardClick, onCardDelete }) {
+function Main({
+  cards,
+  selectDeletedCard,
+  onDeleteConfirm,
+  onEditProfile,
+  onAddPlace,
+  onEditAvatar,
+  onCardLike,
+  onCardClick,
+  onCardDelete,
+}) {
   const { name, about, avatar } = useContext(CurrentUserContext);
 
   return (
@@ -37,6 +47,8 @@ function Main({ cards, onEditProfile, onAddPlace, onEditAvatar, onCardLike, onCa
               <Card
                 key={_id}
                 id={_id}
+                selectDeletedCard={selectDeletedCard}
+                onDeleteConfirm={onDeleteConfirm}
                 onCardClick={onCardClick}
                 onCardLike={onCardLike}
                 onCardDelete={onCardDelete}

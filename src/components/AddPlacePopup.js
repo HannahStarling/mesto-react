@@ -15,6 +15,7 @@ function AddPlacePopup({ isOpen, onClose, onAddCard }) {
 
   return (
     <PopupWithForm
+      hasInput={true}
       onSubmit={handleSubmit}
       onClose={onClose}
       isOpen={isOpen}

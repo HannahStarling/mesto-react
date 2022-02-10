@@ -17,6 +17,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
 
   return (
     <PopupWithForm
+      hasInput={true}
       onSubmit={handleSubmit}
       onClose={onClose}
       isOpen={isOpen}
